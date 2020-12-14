@@ -10,17 +10,20 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    
     var video: RTSPPlayer!
+    
+    let url = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        video = RTSPPlayer(video: "rtsp://admin:admin@192.168.150.243", usesTcp: false)
-        video.outputWidth = Int32(UIScreen.main.bounds.width)
-        video.outputHeight = Int32(UIScreen.main.bounds.height)
+        video = RTSPPlayer(video: url, usesTcp: true)
+        video.outputWidth = Int32(view.bounds.width)
+        video.outputHeight = Int32(view.bounds.height)
         video.seekTime(0.0)
+        
         
       let timer = Timer.scheduledTimer(timeInterval: 1.0/30, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
         timer.fire()
